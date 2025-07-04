@@ -1,7 +1,22 @@
+'use client'
+import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { useUserStore } from "@/store/userStore"
+import { OnboardingForm } from "@/components/onboarding-form"
 
 export default function ProfilePage() {
+  const { userData } = useUserStore()
+  const [showOnboarding, setShowOnboarding] = useState(false)
+
+  const handleEditProfile = () => {
+    setShowOnboarding(true)
+  }
+
+  const handleCloseOnboarding = () => {
+    setShowOnboarding(false)
+  }
+
   return (
     <div className="min-h-screen bg-black text-white">
 
@@ -13,12 +28,52 @@ export default function ProfilePage() {
             <CardTitle className="text-white">Informasi Pribadi</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center space-x-4 mb-4">
-              <div>
-                <h3 className="font-bold text-lg text-white">Pengguna</h3>
+            <div className="space-y-4 mb-4">
+              <div className="flex items-center space-x-4">
+                <div className="size-12 bg-primary-300 rounded-full flex items-center justify-center">
+                  <span className="text-xl font-bold text-black">
+                    {userData?.name ? userData.name.charAt(0).toUpperCase() : "P"}
+                  </span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-white">
+                    {userData?.name || "Pengguna"}
+                  </h3>
+                  <p className="text-sm text-zinc-400">
+                    {userData?.mbti || "MBTI belum diatur"}
+                  </p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 gap-3">
+                <div className="py-2 px-3 bg-zinc-800/50 rounded-lg border border-zinc-700/50">
+                  <div className="text-xs text-zinc-400 uppercase tracking-wide">Status Diet</div>
+                  <div className="text-sm text-white mt-1">
+                    {userData?.isVegan ? "🌱 Vegan" : "🍽️ Non-Vegan"}
+                  </div>
+                </div>
+                
+                <div className="py-2 px-3 bg-zinc-800/50 rounded-lg border border-zinc-700/50">
+                  <div className="text-xs text-zinc-400 uppercase tracking-wide">Alergi</div>
+                  <div className="text-sm text-white mt-1">
+                    {userData?.allergies || "Tidak ada alergi yang tercatat"}
+                  </div>
+                </div>
+                
+                <div className="py-2 px-3 bg-zinc-800/50 rounded-lg border border-zinc-700/50">
+                  <div className="text-xs text-zinc-400 uppercase tracking-wide">Tipe Kepribadian</div>
+                  <div className="text-sm text-white mt-1">
+                    {userData?.mbti || "Belum diatur"}
+                  </div>
+                </div>
               </div>
             </div>
-            <Button variant="outline" className="w-full bg-transparent border-zinc-700 text-white hover:bg-zinc-800 hover:border-green-500">
+            
+            <Button 
+              variant="outline" 
+              className="w-full bg-transparent border-zinc-700 text-white hover:bg-zinc-800 hover:border-green-500"
+              onClick={handleEditProfile}
+            >
               Edit Profile
             </Button>
           </CardContent>
@@ -73,6 +128,12 @@ export default function ProfilePage() {
 
        
       </main>
+
+      {/* Onboarding Form Modal */}
+      <OnboardingForm
+        isOpen={showOnboarding}
+        onClose={handleCloseOnboarding}
+      />
     </div>
   )
 }

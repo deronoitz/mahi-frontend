@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { Toaster } from "@/components/ui/sonner";
+import { SessionProvider } from "@/components/session-provider";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -30,12 +31,13 @@ export default function RootLayout({
       <body
         className={`${plusJakartaSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* <div className="min-h-screen bg-gradient-to-b from-[#0f231c] to-[#4d6807]"> */}
-        <div className="min-h-screen bg-gray-950">
-          <main className="pb-20">{children}</main>
-          <MobileNavigation />
-          <Toaster position="top-center"/>
-        </div>
+        <SessionProvider>
+          <div className="min-h-screen bg-black">
+            <main className="pb-20">{children}</main>
+            <MobileNavigation />
+            <Toaster position="top-center" />
+          </div>
+        </SessionProvider>
       </body>
     </html>
   );

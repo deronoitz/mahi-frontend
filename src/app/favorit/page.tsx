@@ -33,7 +33,7 @@ const favoriteFoods = [
 
 export default function FavoritPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       {/* Header */}
       <header className="px-4 py-6 bg-gradient-to-r from-pink-500 to-red-500">
         <div className="text-center">
