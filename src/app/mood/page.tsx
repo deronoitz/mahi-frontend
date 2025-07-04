@@ -145,12 +145,6 @@ export default function MoodPage() {
       initial={{ y: "100%", opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: "100%", opacity: 0 }}
-      transition={{
-        type: "spring",
-        damping: 25,
-        stiffness: 120,
-        duration: 0.8,
-      }}
       className="min-h-screen px-8"
     >
       {/* Loading Screen */}
