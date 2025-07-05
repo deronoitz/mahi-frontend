@@ -9,12 +9,12 @@ interface MoodActionsProps {
   onContinue: () => void;
 }
 
-export function MoodActions({ 
-  showTextarea, 
-  isLoading, 
-  isValidForSubmission, 
-  onChatClick, 
-  onContinue 
+export function MoodActions({
+  showTextarea,
+  isLoading,
+  isValidForSubmission,
+  onChatClick,
+  onContinue,
 }: MoodActionsProps) {
   return (
     <>
@@ -34,10 +34,7 @@ export function MoodActions({
             transition={{ delay: 1.6, duration: 0.5, ease: "easeOut" }}
             className="flex justify-center"
           >
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button
                 size="lg"
                 variant="outline"
@@ -50,7 +47,7 @@ export function MoodActions({
           </motion.div>
         </>
       )}
-      
+
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -61,14 +58,44 @@ export function MoodActions({
         }}
         className="mt-10"
       >
-        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+        <motion.div
+          animate={{
+            background: [
+              "linear-gradient(45deg, #f97316, #ef4444)",
+              "linear-gradient(45deg, #ea580c, #dc2626)",
+              "linear-gradient(45deg, #f97316, #ef4444)",
+            ],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="rounded-full p-0.5"
+        >
           <Button
             size="lg"
-            className="w-full rounded-full"
             disabled={isLoading || !isValidForSubmission}
             onClick={onContinue}
+            className="rounded-full w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 border-0 shadow-lg relative overflow-hidden"
           >
-            {isLoading ? "Mencari makanan..." : "Lanjutkan"}
+            <motion.span
+              animate={{
+                textShadow: [
+                  "0 0 10px rgba(255, 255, 255, 0.3)",
+                  "0 0 20px rgba(255, 255, 255, 0.6)",
+                  "0 0 10px rgba(255, 255, 255, 0.3)",
+                ],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="relative z-10 text-white"
+            >
+              Lanjutkan!
+            </motion.span>
           </Button>
         </motion.div>
       </motion.div>

@@ -1,11 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { useFoodStore } from "@/store/foodStore";
+import { useUserStore } from "@/store/userStore";
+import Link from "next/link";
 
 interface Restaurant {
   restoran: string;
@@ -25,26 +27,56 @@ interface ApiResponse {
 // Function to format price as Rupiah
 const formatRupiah = (price: string | number): string => {
   // Convert to number if it's a string
-  const numericPrice = typeof price === 'string' ? parseInt(price.replace(/\D/g, '')) : price;
-  
+  const numericPrice =
+    typeof price === "string" ? parseInt(price.replace(/\D/g, "")) : price;
+
   // Format as Indonesian Rupiah
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(numericPrice);
 };
 
 export default function ResultPage() {
-  const [selectedRestaurant, setSelectedRestaurant] = useState<number | null>(
-    null
-  );
   const router = useRouter();
   const { recommendation, error } = useFoodStore();
+  const { userData } = useUserStore();
 
-  const handleCocoknihClick = () => {
-    if (selectedRestaurant !== null) {
+  const handleCocoknihClick = async () => {
+    try {
+      // Ambil user_id dari localStorage
+      const sessionId = localStorage.getItem("makhi_session_id");
+
+      if (!sessionId) {
+        toast.error("Session tidak ditemukan. Silakan refresh halaman.");
+        return;
+      }
+
+      // Prepare payload
+      const payload = {
+        user_id: sessionId,
+        makanan: foodName,
+        user_data: userData,
+      };
+
+      // Kirim data ke API
+      const response = await fetch(
+        "https://ae-automation.fly.dev/webhook/submit-makanan",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       toast.success("Terima kasih sudah menggunakan rekomendasi!", {
         description: "Semoga makanannya enak!",
         duration: 2000,
@@ -54,10 +86,13 @@ export default function ResultPage() {
       setTimeout(() => {
         router.push("/");
       }, 2000);
+    } catch (error) {
+      console.error("Error submitting food data:", error);
+      toast.error("Gagal mengirim data. Silakan coba lagi.");
     }
   };
 
-  const data = (recommendation?.[0] as ApiResponse) || {} as ApiResponse;
+  const data = (recommendation?.[0] as ApiResponse) || ({} as ApiResponse);
 
   const restaurants = Array.isArray(data?.list_restaurant)
     ? data.list_restaurant
@@ -175,12 +210,7 @@ export default function ResultPage() {
               }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => setSelectedRestaurant(index)}
-              className={`flex items-center gap-4 border-2 rounded-xl px-4 min-h-[72px] py-2 transition-colors cursor-pointer ${
-                selectedRestaurant === index
-                  ? "bg-primary-100/40 border-primary-300 shadow-lg"
-                  : "bg-primary-100/20 border-white hover:bg-primary-100/30"
-              }`}
+              className="flex items-center gap-4 border-2 rounded-xl px-4 min-h-[72px] py-2 transition-colors bg-primary-100/20 border-white hover:bg-primary-100/30"
             >
               <div className="flex flex-col justify-center flex-1">
                 <p className="text-white text-base font-bold leading-normal line-clamp-1">
@@ -204,18 +234,20 @@ export default function ResultPage() {
           className="px-8 flex flex-col gap-3 mt-10 mb-10"
         >
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Button size="lg" variant="outline" className="w-full rounded-full">
-              Gak cocok nih! Cari lagi
-            </Button>
+            <Link href="/mood">
+              <Button
+                size="lg"
+                variant="outline"
+                className="w-full rounded-full"
+              >
+                Gak cocok nih! Cari lagi
+              </Button>
+            </Link>
           </motion.div>
-          <motion.div
-            whileHover={{ scale: selectedRestaurant !== null ? 1.02 : 1 }}
-            whileTap={{ scale: selectedRestaurant !== null ? 0.98 : 1 }}
-          >
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Button
               size="lg"
               className="w-full rounded-full"
-              disabled={selectedRestaurant === null}
               onClick={handleCocoknihClick}
             >
               Cocok nih!

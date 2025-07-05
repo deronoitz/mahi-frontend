@@ -196,7 +196,7 @@ export function OnboardingForm({ isOpen, onClose }: OnboardingFormProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="pt-4"
+                className="pt-4 space-y-3"
               >
                 <Button
                   type="submit"
@@ -204,6 +204,14 @@ export function OnboardingForm({ isOpen, onClose }: OnboardingFormProps) {
                   disabled={!isValid || !values.name || !values.mbti}
                 >
                   Mulai Petualangan Kuliner! 🍽️
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full"
+                  onClick={onClose}
+                >
+                  Lewati Dulu
                 </Button>
               </motion.div>
             </Form>
