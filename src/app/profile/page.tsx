@@ -128,7 +128,7 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-gradient-to-b from-[#3c2f6b] via-[#000000] to-[#000000] text-white">
           {/* Lottie Background */}
       {lottieData && (
-        <div className="fixed inset-0 z-0">
+        <div className="fixed top-0 right-0 left-0 z-0">
           <Lottie
             animationData={lottieData}
             play

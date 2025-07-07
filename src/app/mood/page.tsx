@@ -41,7 +41,7 @@ export default function MoodPage() {
       style={{ backgroundImage: "linear-gradient(#3c2f6b, #000000 30%)" }}
     >
       {lottieData && (
-        <div className="fixed inset-0 z-0">
+        <div className="fixed top-0 right-0 left-0 z-0">
           <Lottie
             animationData={lottieData}
             play

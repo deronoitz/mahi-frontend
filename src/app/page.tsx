@@ -38,7 +38,7 @@ export default function Home() {
     <div className="relative min-h-screen overflow-hidden">
       {/* Lottie Background */}
       {lottieData && (
-        <div className="fixed inset-0 z-0">
+        <div className="fixed top-0 right-0 left-0 z-0">
           <Lottie
             animationData={lottieData}
             play
