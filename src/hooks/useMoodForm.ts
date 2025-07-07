@@ -33,6 +33,7 @@ const validationSchema = Yup.object({
   }),
   weather: Yup.string().required(),
   healthy: Yup.string().oneOf(["yes", "no"]).required(),
+  keuangan: Yup.string().oneOf(["tajir", "kere"]).required(),
   meal_time: Yup.string()
     .oneOf(["pagi", "siang", "sore", "malam"])
     .required(),
@@ -61,6 +62,7 @@ export function useMoodForm() {
     vegan: userData?.isVegan ? "yes" : "no",
     text_input: "",
     using_text: false,
+    keuangan: "kere",
   };
 
   const formik = useFormik({
@@ -68,6 +70,7 @@ export function useMoodForm() {
     validationSchema,
     onSubmit: async (values) => {
       setIsLoading(true);
+      const keuangan = values.mood.includes("Lagi Tajir") ? "high" : "low";
 
       try {
         // Create the payload in the exact required format
@@ -79,6 +82,7 @@ export function useMoodForm() {
           vegan: values.vegan,
           text_input: values.text_input,
           using_text: values.using_text,
+          keuangan
         };
 
         // Make API call to get food recommendation

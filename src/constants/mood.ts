@@ -9,7 +9,9 @@ export const MOOD_TAGS = [
   "Santai",
   "Sedih",
   "Netral",
-  "Makanan Sehat"
+  "Makanan Sehat",
+  "Lagi Kere",
+  "Lagi Tajir"
 ] as const;
 
 export type MoodTag = typeof MOOD_TAGS[number];
@@ -96,6 +98,20 @@ export const MOOD_COLORS: Record<MoodTag, {
     border: "border-lime-300",
     text: "text-lime-700",
     selected: "border-lime-500 bg-lime-500",
+    selectedText: "text-white",
+  },
+  "Lagi Kere": {
+    bg: "bg-orange-100",
+    border: "border-orange-300",
+    text: "text-orange-700",
+    selected: "border-orange-500 bg-orange-500",
+    selectedText: "text-white",
+  },
+  "Lagi Tajir": {
+    bg: "bg-yellow-100",
+    border: "border-yellow-300",
+    text: "text-yellow-700",
+    selected: "border-yellow-500 bg-yellow-500",
     selectedText: "text-white",
   }
 };

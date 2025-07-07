@@ -26,6 +26,7 @@ export interface MoodFormValues {
   vegan: string;
   text_input: string;
   using_text: boolean;
+  keuangan: string;
 }
 
 export interface LoadingState {
