@@ -115,7 +115,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-gradient-to-b from-[#3c2f6b] via-[#000000] to-[#000000] text-white">
       {/* Main Content */}
       <main className="px-4 py-6 space-y-6">
         {/* Profile Info */}
