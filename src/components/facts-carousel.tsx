@@ -13,12 +13,23 @@ const facts = [
   {
     id: 1,
     title: "Tahukah kamu?",
-    content: "70% orang menghabiskan waktu 30 menit untuk memilih makanan.",
+    content:
+      "Ternyata, kita tuh bikin sekitar 226 keputusan soal makanan setiap hari — dan kebanyakan tanpa sadar!",
+    source: "Wansink & Sobal, 2007",
   },
   {
     id: 2,
     title: "Tahukah kamu?",
-    content: "70% orang menghabiskan waktu 30 menit untuk memilih makanan.",
+    content:
+      "Lebih dari setengah orang dewasa (52%) stres setiap hari cuma gara-gara bingung mau makan apa.",
+    source: "Harris Poll, 2021",
+  },
+  {
+    id: 3,
+    title: "Tahukah kamu?",
+    content:
+      "Bayangin, kita habiskan sekitar 132 jam setahun cuma buat mikirin: “Makan apa ya hari ini?”",
+    source: "Waitrose Food Report",
   },
 ];
 
@@ -59,6 +70,7 @@ export function FactsCarousel() {
                   <p className="text-sm text-gray-300 font-medium leading-relaxed">
                     {fact.content}
                   </p>
+                  <p className="text-right text-xs italic">{fact.source}</p>
                 </CardContent>
               </Card>
             </CarouselItem>
