@@ -61,7 +61,7 @@ export default function Home() {
 
         <Link href="/mood">
           <motion.div
-            whileHover={{ 
+            whileHover={{
               scale: 1.1,
               rotate: [0, -1, 1, 0],
             }}
@@ -92,7 +92,7 @@ export default function Home() {
               },
               rotate: {
                 duration: 0.2,
-              }
+              },
             }}
             className="fixed bottom-24 left-1/2 transform -translate-x-1/2 z-50 rounded-full"
           >
