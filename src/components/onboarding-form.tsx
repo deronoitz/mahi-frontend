@@ -35,8 +35,7 @@ const validationSchema = Yup.object({
     .required('Nama wajib diisi'),
   isVegan: Yup.boolean().required('Pilih salah satu'),
   mbti: Yup.string()
-    .oneOf(mbtiTypes, 'Pilih MBTI yang valid')
-    .required('MBTI wajib dipilih'),
+    .oneOf([...mbtiTypes, ''], 'Pilih MBTI yang valid'),
   allergies: Yup.string()
 })
 
@@ -146,7 +145,7 @@ export function OnboardingForm({ isOpen, onClose }: OnboardingFormProps) {
                 transition={{ delay: 0.3 }}
               >
                 <label htmlFor="mbti" className="block text-sm font-medium text-white mb-2">
-                  MBTI *
+                  MBTI (opsional)
                 </label>
                 <Select
                   value={values.mbti}
@@ -201,7 +200,7 @@ export function OnboardingForm({ isOpen, onClose }: OnboardingFormProps) {
                 <Button
                   type="submit"
                   className="w-full"
-                  disabled={!isValid || !values.name || !values.mbti}
+                  disabled={!isValid || !values.name}
                 >
                   Mulai Petualangan Kuliner! 🍽️
                 </Button>

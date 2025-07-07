@@ -161,7 +161,7 @@ export default function ResultPage() {
               <h1 className="text-white text-2xl text-center font-bold leading-normal">
                 {foodName}
               </h1>
-              <p className="text-center text-xs leading-6">{recommendationReason}</p>
+              <p className="text-center text-xs leading-6">{notes}</p>
             </div>
           </motion.div>
         </motion.div>
@@ -176,7 +176,7 @@ export default function ResultPage() {
             Alasan Rekomendasi
           </h2>
           <p className="text-white text-sm font-normal leading-normal pb-3 pt-1 px-8">
-            {notes}
+            {recommendationReason}
           </p>
         </motion.div>
 

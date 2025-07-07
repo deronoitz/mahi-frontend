@@ -70,7 +70,7 @@ export function FactsCarousel() {
                   <p className="text-sm text-gray-300 font-medium leading-relaxed">
                     {fact.content}
                   </p>
-                  <p className="text-right text-xs italic">{fact.source}</p>
+                  <p className="text-right text-xs italic mt-3">{fact.source}</p>
                 </CardContent>
               </Card>
             </CarouselItem>
