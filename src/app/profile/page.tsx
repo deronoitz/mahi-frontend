@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/userStore";
 import { OnboardingForm } from "@/components/onboarding-form";
+import Lottie from "react-lottie-player";
 
 interface FoodHistory {
   id?: string;
@@ -21,6 +22,7 @@ export default function ProfilePage() {
   const [totalMakanan, setTotalMakanan] = useState<number>(0);
   const [historyMakanan, setHistoryMakanan] = useState<FoodHistory[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [lottieData, setLottieData] = useState(null);
 
   // Helper function to format date
   const formatDate = (dateString?: string) => {
@@ -46,6 +48,14 @@ export default function ProfilePage() {
   const getFoodName = (food: FoodHistory) => {
     return food.makanan as string;
   };
+  useEffect(() => {
+    // Load Lottie animation data
+    fetch('/bg-light.json')
+      .then(response => response.json())
+      .then(data => setLottieData(data))
+      .catch(error => console.error('Error loading Lottie animation:', error));
+  }, []);
+
   useEffect(() => {
     const fetchMakananData = async () => {
       try {
@@ -116,8 +126,29 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#3c2f6b] via-[#000000] to-[#000000] text-white">
+          {/* Lottie Background */}
+      {lottieData && (
+        <div className="fixed inset-0 z-0">
+          <Lottie
+            animationData={lottieData}
+            play
+            loop
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        </div>
+      )}
+      
+      {/* Gradient Overlay */}
+      <div 
+        className="fixed inset-0 z-10 bg-gradient-to-b from-[#3c2f6b]/80 via-[#000000]/60 to-[#000000]/80"
+        style={{ backgroundImage: "linear-gradient(rgba(60, 47, 107, 0.8), rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 0.8))" }}
+      />
       {/* Main Content */}
-      <main className="px-4 py-6 space-y-6">
+      <main className="px-4 py-6 space-y-6 z-10 relative">
         {/* Profile Info */}
         <Card className="bg-zinc-900 border-zinc-800">
           <CardHeader>

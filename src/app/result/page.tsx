@@ -247,7 +247,8 @@ export default function ResultPage() {
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Button
               size="lg"
-              className="w-full rounded-full"
+              variant="main"
+              className="w-full rounded-full text-sm border-0"
               onClick={handleCocoknihClick}
             >
               Cocok nih!

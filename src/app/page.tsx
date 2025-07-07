@@ -9,10 +9,20 @@ import { LocationDisplay } from "@/components/location-display";
 import { OnboardingForm } from "@/components/onboarding-form";
 import { useUserStore } from "@/store/userStore";
 import Link from "next/link";
+import Lottie from "react-lottie-player";
 
 export default function Home() {
   const { hasCompletedOnboarding } = useUserStore();
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [lottieData, setLottieData] = useState(null);
+
+  useEffect(() => {
+    // Load Lottie animation data
+    fetch('/bg-light.json')
+      .then(response => response.json())
+      .then(data => setLottieData(data))
+      .catch(error => console.error('Error loading Lottie animation:', error));
+  }, []);
 
   useEffect(() => {
     // Check if user has completed onboarding when component mounts
@@ -25,10 +35,32 @@ export default function Home() {
     setShowOnboarding(false);
   };
   return (
-    <div
-      className="min-h-screen bg-gradient-to-b from-[#3c2f6b] via-[#000000] to-[#000000]"
-      style={{ backgroundImage: "linear-gradient(#3c2f6b, #000000 30%)" }}
-    >
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Lottie Background */}
+      {lottieData && (
+        <div className="fixed inset-0 z-0">
+          <Lottie
+            animationData={lottieData}
+            play
+            loop
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        </div>
+      )}
+      
+      {/* Gradient Overlay */}
+      <div 
+        className="fixed inset-0 z-10 bg-gradient-to-b from-[#3c2f6b]/80 via-[#000000]/60 to-[#000000]/80"
+        style={{ backgroundImage: "linear-gradient(rgba(60, 47, 107, 0.8), rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 0.8))" }}
+      />
+      
+      {/* Content */}
+      <div className="relative z-20 min-h-screen">
+
       {/* Header */}
       <header className="relative pt-10">
         <h2 className="font-bold text-5xl text-white text-center">
@@ -145,6 +177,7 @@ export default function Home() {
           onClose={handleCloseOnboarding}
         />
       )}
+      </div>
     </div>
   );
 }
