@@ -11,10 +11,10 @@ import { useLocation } from "./useLocation";
 
 const getMealTimeFromCurrentTime = (): string => {
   const hour = new Date().getHours();
-  if (hour >= 5 && hour < 11) return "morning";
-  if (hour >= 11 && hour < 15) return "noon";
-  if (hour >= 15 && hour < 18) return "afternoon";
-  return "night";
+  if (hour >= 5 && hour < 11) return "pagi";
+  if (hour >= 11 && hour < 15) return "siang";
+  if (hour >= 15 && hour < 18) return "sore";
+  return "malam";
 };
 
 const validationSchema = Yup.object({
@@ -34,7 +34,7 @@ const validationSchema = Yup.object({
   weather: Yup.string().required(),
   healthy: Yup.string().oneOf(["yes", "no"]).required(),
   meal_time: Yup.string()
-    .oneOf(["morning", "noon", "afternoon", "night"])
+    .oneOf(["pagi", "siang", "sore", "malam"])
     .required(),
   vegan: Yup.string().oneOf(["yes", "no"]).required(),
   using_text: Yup.boolean().required(),
