@@ -32,7 +32,7 @@ export default function RootLayout({
         className={`${plusJakartaSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionProvider>
-          <div className="min-h-screen bg-black">
+          <div className="min-h-screen bg-black max-w-[375px] mx-auto relative">
             <main className="pb-20">{children}</main>
             <MobileNavigation />
             <Toaster position="top-center" />
