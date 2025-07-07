@@ -45,7 +45,7 @@ export function MobileNavigation() {
                   "h-5 w-5 mb-1 transition-transform duration-200",
                   isActive && "scale-110"
                 )}
-                fill={isActive ? "#24F2A9" : "none"}
+                fill={isActive ? "#ff6600" : "none"}
                 stroke={isActive ? "none" : "#ddd"}
               />
               <span
