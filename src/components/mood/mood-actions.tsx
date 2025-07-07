@@ -58,46 +58,17 @@ export function MoodActions({
         }}
         className="mt-10"
       >
-        <motion.div
-          animate={{
-            background: [
-              "linear-gradient(45deg, #f97316, #ef4444)",
-              "linear-gradient(45deg, #ea580c, #dc2626)",
-              "linear-gradient(45deg, #f97316, #ef4444)",
-            ],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="rounded-full p-0.5"
-        >
+        <div className="rounded-full p-0.5">
           <Button
             size="lg"
+            type="submit"
             disabled={isLoading || !isValidForSubmission}
             onClick={onContinue}
             className="rounded-full w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 border-0 shadow-lg relative overflow-hidden"
           >
-            <motion.span
-              animate={{
-                textShadow: [
-                  "0 0 10px rgba(255, 255, 255, 0.3)",
-                  "0 0 20px rgba(255, 255, 255, 0.6)",
-                  "0 0 10px rgba(255, 255, 255, 0.3)",
-                ],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="relative z-10 text-white"
-            >
-              Lanjutkan!
-            </motion.span>
+            <span className="relative z-10 text-white">Lanjutkan!</span>
           </Button>
-        </motion.div>
+        </div>
       </motion.div>
     </>
   );

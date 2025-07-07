@@ -32,12 +32,12 @@ const validationSchema = Yup.object({
     otherwise: (schema) => schema,
   }),
   weather: Yup.string().required(),
-  healthy: Yup.string().oneOf(["yes", "no"]).required(),
+  healthy: Yup.string().oneOf(["ya", "tidak"]).required(),
   keuangan: Yup.string().oneOf(["tajir", "kere"]).required(),
   meal_time: Yup.string()
     .oneOf(["pagi", "siang", "sore", "malam"])
     .required(),
-  vegan: Yup.string().oneOf(["yes", "no"]).required(),
+  vegan: Yup.string().oneOf(["ya", "tidak"]).required(),
   using_text: Yup.boolean().required(),
 });
 
@@ -57,9 +57,9 @@ export function useMoodForm() {
   const initialValues: MoodFormValues = {
     mood: [],
     weather: weather?.weather[0].description || "neutral",
-    healthy: "no",
+    healthy: "tidak",
     meal_time: getMealTimeFromCurrentTime(),
-    vegan: userData?.isVegan ? "yes" : "no",
+    vegan: userData?.isVegan ? "ya" : "tidak",
     text_input: "",
     using_text: false,
     keuangan: "kere",
@@ -70,24 +70,25 @@ export function useMoodForm() {
     validationSchema,
     onSubmit: async (values) => {
       setIsLoading(true);
-      const keuangan = values.mood.includes("Lagi Tajir") ? "high" : "low";
+      const keuanganHigh = values.mood.includes("Lagi Tajir") && "high";
+      const keuanganLow = values.mood.includes("Lagi Kere") && "low";
 
       try {
         // Create the payload in the exact required format
         const payload = {
-          mood: values.mood.map(m => m.toLowerCase()),
+          mood: values.mood.map(m => m.toLowerCase()).filter(i => i !== "lagi tajir" && i !== "lagi kere" && i !== "makanan sehat"),
           weather: weather?.weather[0].description || "neutral",
-          healthy: values.healthy,
+          healthy: values.mood.includes("Makanan Sehat") ? "ya" : "tidak",
           meal_time: values.meal_time,
           vegan: values.vegan,
           text_input: values.text_input,
           using_text: values.using_text,
-          keuangan
+          keuangan: keuanganHigh || keuanganLow || "-",
         };
 
         // Make API call to get food recommendation
         const response = await fetch(
-          "https://ae-automation.fly.dev/webhook/pilih-makanan",
+          "https://ae-automation.fly.dev/webhook/pilih-makanan-2",
           {
             method: "POST",
             headers: {

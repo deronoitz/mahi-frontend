@@ -12,7 +12,9 @@ import Link from "next/link";
 interface Restaurant {
   restoran: string;
   price: string | number;
+  harga?: string | number; // Support both 'price' and 'harga'
   alamat?: string;
+  jarak?: string; // Optional, can be used for distance
   rating?: number;
 }
 
@@ -159,7 +161,7 @@ export default function ResultPage() {
               <h1 className="text-white text-2xl text-center font-bold leading-normal">
                 {foodName}
               </h1>
-              <p className="text-center text-xs leading-6">{notes}</p>
+              <p className="text-center text-xs leading-6">{recommendationReason}</p>
             </div>
           </motion.div>
         </motion.div>
@@ -174,7 +176,7 @@ export default function ResultPage() {
             Alasan Rekomendasi
           </h2>
           <p className="text-white text-sm font-normal leading-normal pb-3 pt-1 px-8">
-            {recommendationReason}
+            {notes}
           </p>
         </motion.div>
 
@@ -217,10 +219,10 @@ export default function ResultPage() {
                   {restaurant.restoran}
                 </p>
                 <p className="text-xs">
-                  {restaurant.alamat || "Lokasi tidak tersedia"}
+                  Jarak {restaurant.jarak || "Lokasi tidak tersedia"}
                 </p>
                 <p className="text-primary-300 text-sm font-bold leading-normal line-clamp-2">
-                  {formatRupiah(restaurant.price)}
+                  {formatRupiah(restaurant.harga || restaurant.price)}
                 </p>
               </div>
             </motion.div>

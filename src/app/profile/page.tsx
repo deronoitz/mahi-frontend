@@ -50,10 +50,12 @@ export default function ProfilePage() {
   };
   useEffect(() => {
     // Load Lottie animation data
-    fetch('/bg-light.json')
-      .then(response => response.json())
-      .then(data => setLottieData(data))
-      .catch(error => console.error('Error loading Lottie animation:', error));
+    fetch("/bg-light.json")
+      .then((response) => response.json())
+      .then((data) => setLottieData(data))
+      .catch((error) =>
+        console.error("Error loading Lottie animation:", error)
+      );
   }, []);
 
   useEffect(() => {
@@ -81,8 +83,12 @@ export default function ProfilePage() {
         // Helper function to sort by created_at descending
         const sortByCreatedAt = (items: FoodHistory[]) => {
           return items.sort((a, b) => {
-            const dateA = new Date((a.created_at as string) || (a.timestamp as string) || 0).getTime();
-            const dateB = new Date((b.created_at as string) || (b.timestamp as string) || 0).getTime();
+            const dateA = new Date(
+              (a.created_at as string) || (a.timestamp as string) || 0
+            ).getTime();
+            const dateB = new Date(
+              (b.created_at as string) || (b.timestamp as string) || 0
+            ).getTime();
             return dateB - dateA; // descending order (newest first)
           });
         };
@@ -126,7 +132,7 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#3c2f6b] via-[#000000] to-[#000000] text-white">
-          {/* Lottie Background */}
+      {/* Lottie Background */}
       {lottieData && (
         <div className="fixed top-0 right-0 left-0 z-0">
           <Lottie
@@ -134,23 +140,26 @@ export default function ProfilePage() {
             play
             loop
             style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
             }}
           />
         </div>
       )}
-      
+
       {/* Gradient Overlay */}
-      <div 
+      <div
         className="fixed inset-0 z-10 bg-gradient-to-b from-[#3c2f6b]/80 via-[#000000]/60 to-[#000000]/80"
-        style={{ backgroundImage: "linear-gradient(rgba(60, 47, 107, 0.8), rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 0.8))" }}
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(60, 47, 107, 0.8), rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 0.8))",
+        }}
       />
       {/* Main Content */}
       <main className="px-4 py-6 space-y-6 z-10 relative">
         {/* Profile Info */}
-        <Card className="bg-zinc-900 border-zinc-800">
+        <Card className="bg-zinc-900/20 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-white">Informasi Pribadi</CardTitle>
           </CardHeader>
@@ -215,7 +224,7 @@ export default function ProfilePage() {
         </Card>
 
         {/* Statistics */}
-        <Card className="bg-zinc-900 border-zinc-800">
+        <Card className="bg-zinc-900/20 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-white">Statistik Kamu</CardTitle>
           </CardHeader>
@@ -232,7 +241,7 @@ export default function ProfilePage() {
         </Card>
 
         {/* Recent Foods - Last 7 Days */}
-        <Card className="bg-zinc-900 border-zinc-800">
+        <Card className="bg-zinc-900/20 backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="text-white">Histori Makanan Kamu</CardTitle>
           </CardHeader>
